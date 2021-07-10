@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(CLASSNAME))]
+public class #SCRIPTNAME# : Editor
+{
+    private SerializedObject _so;
+    //private SerializedProperty _prop;
+#NOTRIM#
+
+    private class CLASSNAME {} //Remove this line after renaming CLASSNAME
+    private CLASSNAME _editedClass;
+    private MonoScript _script;
+#NOTRIM#
+    private void OnEnable()
+    {
+	    _so = serializedObject;
+	    //_prop = _so.FindProperty("");
+#NOTRIM#
+	    _editedClass = target as CLASSNAME;
+	    _script = MonoScript.FromMonoBehaviour(_editedClass);
+    }
+#NOTRIM#
+    public override void OnInspectorGUI()
+    {
+	    const int INSPECTOR_OFFSET = 10;
+#NOTRIM#
+	    using (new EditorGUILayout.HorizontalScope())
+	    {
+	    //Script Field for quick access
+	    GUI.enabled = false;
+	    GUILayout.Label("Script:", GUILayout.Width(39));
+	    _script = EditorGUILayout.ObjectField(_script, typeof(MonoScript), false, GUILayout.Width(100)) as MonoScript;
+	    GUI.enabled = true;
+	    base.OnInspectorGUI();
+	    }
+    }
+}

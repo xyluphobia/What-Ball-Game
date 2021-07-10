@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+[ExecuteAlways]
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    private void OnEnable()
+    {
+#NOTRIM#
+    }
+#NOTRIM#
+    private void OnDrawGizmosSelected()
+    {
+#NOTRIM#
+    }
+}

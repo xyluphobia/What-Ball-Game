@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering;
+#NOTRIM#
+public class #SCRIPTNAME# : EditorWindow
+{
+    // Hotkeys: | CTRL - % | SHIFT - # | ALT - & |
+    [MenuItem("Tools/TOOLNAME")]
+    public static void OpenWindow() => GetWindow<#SCRIPTNAME#>("TABNAME");
+#NOTRIM#
+    SerializedObject _so;
+    //SerializedProperty _prop;
+#NOTRIM#
+    private void OnEnable()
+    {
+	    _so = new SerializedObject(this);
+	    //_prop = _so.FindProperty("");
+#NOTRIM#
+	    //Selection.selectionChanged += Repaint;
+	    SceneView.duringSceneGui += DuringSceneGUI;
+    }
+#NOTRIM#
+    private void OnDestroy()
+    {
+	    //Selection.selectionChanged -= Repaint;
+	    SceneView.duringSceneGui -= DuringSceneGUI;
+    }
+#NOTRIM#
+    private void OnGUI()
+    {
+	    _so.Update();
+#NOTRIM#
+	    _so.ApplyModifiedProperties();
+    }
+#NOTRIM#
+    private void DuringSceneGUI(SceneView sceneView)
+    {
+#NOTRIM#
+    }
+#NOTRIM#
+    private void LoadData()
+    {
+	    //_VARIABLE = EditorPrefs.GetFloat("KEY", DEFAULT_VALUE);
+    }
+#NOTRIM#
+    private void SaveData()
+    {
+	    //EditorPrefs.SetFloat("KEY", _VARIABLE);
+    }
+}
