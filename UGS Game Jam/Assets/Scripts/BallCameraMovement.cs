@@ -48,7 +48,6 @@ public class BallCameraMovement : MonoBehaviour
         if (Raycast.Single(cameraTrack.position, transform.position, out RaycastHit hitInfo, cameraDistance + 5f))
         {
             float lerpDistance = Mathf.Lerp(cameraDistance, hitInfo.distance - 2f, smoothTime);
-            Debug.Log(lerpDistance);
             preferredDistance = lerpDistance;
         }
 

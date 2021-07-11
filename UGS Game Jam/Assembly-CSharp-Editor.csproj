@@ -53,10 +53,11 @@
     <UnityVersion>2020.3.13f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Other Packages\Empty At Zero Creator\Scripts\Editor\EmptyAtZero_Creator.cs" />
-    <Compile Include="Assets\Other Packages\Empty At Zero Creator\Scripts\Editor\EmptyChildAtLocalZero_Creator.cs" />
-    <Compile Include="Assets\Other Packages\Empty At Zero Creator\Scripts\Editor\EmptyChildAtGlobalZero_Creator.cs" />
     <Compile Include="Assets\Other Packages\Empty At Zero Creator\Scripts\Editor\EmptyCreator.cs" />
+    <Compile Include="Assets\Other Packages\Empty At Zero Creator\Scripts\Editor\EmptyChildAtGlobalZero_Creator.cs" />
+    <Compile Include="Assets\Other Packages\Empty At Zero Creator\Scripts\Editor\EmptyChildAtLocalZero_Creator.cs" />
+    <Compile Include="Assets\Other Packages\Empty At Zero Creator\Scripts\Editor\EmptyAtZero_Creator.cs" />
+    <Compile Include="Assets\Editor\SnapperWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

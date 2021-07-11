@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public bool Back;
     [HideInInspector] public bool Right;
     [HideInInspector] public bool Any;
+
+    [HideInInspector] public bool UseBallCam;
+
+    public UnityEvent<bool> OnSwitchCamera;
 
     private void Update()
     {
@@ -44,5 +49,14 @@ public class PlayerInput : MonoBehaviour
 
         if (!Forward && !Left && !Back && !Right)
             Any = false;
+
+#if UNITY_EDITOR
+        //CAM SWITCH
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            UseBallCam ^= true;
+            OnSwitchCamera?.Invoke(UseBallCam);
+        }
+#endif
     }
 }
