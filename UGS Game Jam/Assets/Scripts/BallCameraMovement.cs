@@ -11,15 +11,15 @@ public class BallCameraMovement : MonoBehaviour
     [Space]
     [SerializeField] private float cameraDistance = 12f;
     [SerializeField] private float smoothTime = .5f;
-    [SerializeField] private float _velocity = 1f;
     [SerializeField, Range(.1f, 10f)] private float sensitivity = 1;
     [SerializeField] private bool invertY = false;
 
     private int _cameraInvertValue;
 
-    private void Awake()
+    private void Start()
     {
-        throw new NotImplementedException();
+        ClampCamera();
+        throw new NotImplementedException("Check Camera Block Not implemented properly");
     }
 
     private void Update()
@@ -44,11 +44,19 @@ public class BallCameraMovement : MonoBehaviour
 
     private void CheckCameraBlock()
     {
-        if (Raycast.Single(cameraTrack.position, transform.position, out RaycastHit hitInfo, cameraDistance + 1f))
+        float preferredDistance = cameraDistance;
+        if (Raycast.Single(cameraTrack.position, transform.position, out RaycastHit hitInfo, cameraDistance + 5f))
         {
-            float dampDistance = Mathf.SmoothDamp(cameraDistance, hitInfo.distance, ref _velocity, smoothTime);
-            Debug.Log(dampDistance);
-            UpdateCameraDistance(dampDistance);
+            float lerpDistance = Mathf.Lerp(cameraDistance, hitInfo.distance - 2f, smoothTime);
+            Debug.Log(lerpDistance);
+            preferredDistance = lerpDistance;
         }
+
+        UpdateCameraDistance(preferredDistance);
+    }
+
+    private void ClampCamera()
+    {
+        throw new NotImplementedException("Clamping not implemented");
     }
 }
