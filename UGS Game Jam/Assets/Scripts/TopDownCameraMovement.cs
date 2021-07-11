@@ -17,7 +17,7 @@ public class TopDownCameraMovement : MonoBehaviour
     [SerializeField] private bool invertY = false;
 
     private PlayerInput _pi;
-    private int cameraInvertValue;
+    private int _cameraInvertValue;
 
     private void Awake() => _pi = GetComponent<PlayerInput>();
 
@@ -27,11 +27,11 @@ public class TopDownCameraMovement : MonoBehaviour
 
     private void Update()
     {
-        cameraInvertValue = GetInvertValue();
+        _cameraInvertValue = GetInvertValue();
 
         //MOUSE
         transform.RotateAround(transform.position, Vector3.up, Input.GetAxis("Mouse X") * sensitivity);
-        transform.RotateAround(transform.position, transform.right, Input.GetAxis("Mouse Y") * sensitivity * cameraInvertValue);
+        transform.RotateAround(transform.position, transform.right, Input.GetAxis("Mouse Y") * sensitivity * _cameraInvertValue);
 
         if (_pi.Any)
             Move();

@@ -53,13 +53,16 @@
     <UnityVersion>2020.3.13f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\TopDownCameraMovement.cs" />
+    <Compile Include="Assets\Scripts\CameraSwitcher.cs" />
     <Compile Include="Assets\Scripts\Sky&apos;s Library\ExtensionMethods.cs" />
     <Compile Include="Assets\Scripts\Sky&apos;s Library\EditorFunctions.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\SpeedBoost.cs" />
     <Compile Include="Assets\Scripts\BallMovement.cs" />
-    <Compile Include="Assets\Scripts\BallCameraMovement.cs" />
-    <Compile Include="Assets\Scripts\TopDownCameraMovement.cs" />
     <Compile Include="Assets\Scripts\Sky&apos;s Library\Raycasting.cs" />
+    <Compile Include="Assets\Scripts\BallCameraMovement.cs" />
+    <Compile Include="Assets\Scripts\SpringTrapBoost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Other Packages\Empty At Zero Creator\Documentation\Features.txt" />

@@ -18,6 +18,11 @@ public class BallMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        _rb.maxAngularVelocity = Mathf.Infinity;
+    }
+
     private void FixedUpdate()
     {
         if (_pi.Forward && movementEnabled)
