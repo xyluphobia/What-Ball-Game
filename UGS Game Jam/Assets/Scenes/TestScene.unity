@@ -721,7 +721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2556829524241250890, guid: d2e9b4a6f0297d54cb20abec9011ca53, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4999
+      value: -0.499
       objectReference: {fileID: 0}
     - target: {fileID: 2556829524241250890, guid: d2e9b4a6f0297d54cb20abec9011ca53, type: 3}
       propertyPath: m_LocalPosition.z
@@ -964,9 +964,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTrack: {fileID: 1809322119}
-  cameraDistance: 20
+  cameraDistance: 10
   smoothTime: 0.5
-  _velocity: 1
   sensitivity: 1.51
   invertY: 0
 --- !u!1001 &1044244119
