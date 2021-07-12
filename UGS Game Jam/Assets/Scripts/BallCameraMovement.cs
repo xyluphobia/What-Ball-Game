@@ -1,9 +1,6 @@
 using Skypex.ExtensionMethods;
 using Skypex.Raycasting;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class BallCameraMovement : MonoBehaviour
 {
@@ -19,7 +16,7 @@ public class BallCameraMovement : MonoBehaviour
     private void Start()
     {
         ClampCamera();
-        throw new NotImplementedException("Check Camera Block Not implemented properly");
+        throw new System.NotImplementedException("Check Camera Block Not implemented properly");
     }
 
     private void Update()
@@ -56,6 +53,6 @@ public class BallCameraMovement : MonoBehaviour
 
     private void ClampCamera()
     {
-        throw new NotImplementedException("Clamping not implemented");
+        throw new System.NotImplementedException("Clamping not implemented");
     }
 }

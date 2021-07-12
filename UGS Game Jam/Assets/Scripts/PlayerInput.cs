@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +10,7 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public bool Any;
 
     [HideInInspector] public bool UseBallCam;
+    [HideInInspector] public float ScrollWheelDelta;
 
     public UnityEvent<bool> OnSwitchCamera;
 
@@ -49,6 +48,9 @@ public class PlayerInput : MonoBehaviour
 
         if (!Forward && !Left && !Back && !Right)
             Any = false;
+
+        //SCROLL SHEEL
+        ScrollWheelDelta = Input.mouseScrollDelta.y;
 
 #if UNITY_EDITOR
         //CAM SWITCH

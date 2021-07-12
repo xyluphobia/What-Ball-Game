@@ -1,6 +1,3 @@
-using Skypex.ExtensionMethods;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallMovement : MonoBehaviour
@@ -26,15 +23,15 @@ public class BallMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (_pi.Forward && movementEnabled)
-            _rb.AddTorque(playerCamera.transform.right * moveSpeed);
+            _rb.AddTorque(playerCamera.transform.right * moveSpeed * Time.deltaTime);
 
         if (_pi.Left && movementEnabled)
-            _rb.AddTorque(playerCamera.transform.forward * moveSpeed);
+            _rb.AddTorque(playerCamera.transform.forward * moveSpeed * Time.deltaTime);
 
         if (_pi.Back && movementEnabled)
-            _rb.AddTorque(-playerCamera.transform.right * moveSpeed);
+            _rb.AddTorque(-playerCamera.transform.right * moveSpeed * Time.deltaTime);
 
         if (_pi.Right && movementEnabled)
-            _rb.AddTorque(-playerCamera.transform.forward * moveSpeed);
+            _rb.AddTorque(-playerCamera.transform.forward * moveSpeed * Time.deltaTime);
     }
 }
