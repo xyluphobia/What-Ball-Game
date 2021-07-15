@@ -14,6 +14,8 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public float ScrollWheelDelta;
 
     public UnityEvent<bool> OnSwitchCamera;
+    public UnityEvent<SelectionDirection> OnSelectionChanged;
+    public UnityEvent<MouseButton> OnMouseClick;
 
     private void Update()
     {
@@ -55,10 +57,17 @@ public class PlayerInput : MonoBehaviour
 
         //MOUSE BUTTONS
         if (Input.GetKeyDown(KeyCode.Mouse0))
-            LeftMouseButton = true;
+            OnMouseClick?.Invoke(MouseButton.LeftClick);
 
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-            LeftMouseButton = false;
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+            OnMouseClick?.Invoke(MouseButton.RightClick);
+
+        //QE
+        if (Input.GetKeyDown(KeyCode.Q))
+            OnSelectionChanged?.Invoke(SelectionDirection.Left);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            OnSelectionChanged?.Invoke(SelectionDirection.Right);
 
 #if UNITY_EDITOR
         //CAM SWITCH
@@ -69,4 +78,16 @@ public class PlayerInput : MonoBehaviour
         }
 #endif
     }
+}
+
+public enum SelectionDirection
+{
+    Left,
+    Right
+}
+
+public enum MouseButton
+{
+    LeftClick,
+    RightClick
 }

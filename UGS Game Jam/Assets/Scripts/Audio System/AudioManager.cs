@@ -100,14 +100,14 @@ public class AudioManager : MonoBehaviour
         mixer.SetFloat("SFX Distortion", level);
     }
 
-    public static void FadeIn(AudioSource source, float fadeTime, float targetVolume)
+    public static void FadeIn(AudioSource source, float fadeTime, float targetVolume, float delay = 0)
     {
-        AudioUtilsE.FadeIn(source, fadeTime, targetVolume);
+        AudioUtilsE.FadeIn(source, fadeTime, targetVolume, delay);
     }
 
-    public static void FadeOut(AudioSource source, float fadeTime, float targetVolume)
+    public static void FadeOut(AudioSource source, float fadeTime, float targetVolume, float delay = 0)
     {
-        AudioUtilsE.FadeOut(source, fadeTime, targetVolume);
+        AudioUtilsE.FadeOut(source, fadeTime, targetVolume, delay);
     }
 
     public static void CrossFade(AudioSource sourceToFadeIn, AudioSource sourceToFadeOut, float targetFadeInVolume, float targetFadeOutVolume, float fadeTime, float delay = 0)

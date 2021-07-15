@@ -67,6 +67,9 @@
     <Compile Include="Assets\Scripts\Sky&apos;s Library\Raycasting.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Sky&apos;s Library\AudioUtils.cs" />
+    <Compile Include="Assets\Scripts\BuilderIO.cs" />
+    <Compile Include="Assets\Scripts\MapTool.cs" />
+    <Compile Include="Assets\Scripts\PuzzlePieceList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
