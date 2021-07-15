@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public bool Back;
     [HideInInspector] public bool Right;
     [HideInInspector] public bool Any;
+    [HideInInspector] public bool LeftMouseButton;
 
     [HideInInspector] public bool UseBallCam;
     [HideInInspector] public float ScrollWheelDelta;
@@ -51,6 +52,13 @@ public class PlayerInput : MonoBehaviour
 
         //SCROLL SHEEL
         ScrollWheelDelta = Input.mouseScrollDelta.y;
+
+        //MOUSE BUTTONS
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            LeftMouseButton = true;
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+            LeftMouseButton = false;
 
 #if UNITY_EDITOR
         //CAM SWITCH

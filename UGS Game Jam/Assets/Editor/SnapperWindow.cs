@@ -5,7 +5,6 @@ using Skypex.ExtensionMethods;
 
 public class SnapperWindow : EditorWindow
 {
-
     [MenuItem("Tools/Snapper %#&S")]
     public static void OpenWindow() => GetWindow<SnapperWindow>("Snapper");
 
@@ -24,6 +23,7 @@ public class SnapperWindow : EditorWindow
     private bool _drawYZGrid = false;
     private int _gridPlaneIndex;
     private int _gridScaleIndex;
+    private bool _gridXRay = false;
 
     private readonly string[] GridPlane =
     {
@@ -87,6 +87,11 @@ public class SnapperWindow : EditorWindow
             _drawGrid = EditorGUILayout.Toggle(_drawGrid, GUILayout.Width(14));
 
             GUILayout.FlexibleSpace();
+
+            if (GUILayout.Button("XRay Lines", GUILayout.MinWidth(100)))
+            {
+                ToggleGridXRay();
+            }
 
             if (GUILayout.Button("Save", GUILayout.MinWidth(100)))
             {
@@ -267,6 +272,8 @@ public class SnapperWindow : EditorWindow
             obj.transform.position = obj.GetPosition().Round(_gridSize);
         }
     }
+
+    private void ToggleGridXRay() => _gridXRay ^= true;
 
     private void LoadData()
     {

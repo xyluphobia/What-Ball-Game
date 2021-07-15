@@ -514,8 +514,11 @@ namespace Skypex.Raycasting
             }
         }
 
-        public static void Ray(Vector3 origin, RaycastHit hit, float duration = .5f) =>
+        public static void Single(Vector3 origin, RaycastHit hit, float duration = .5f) =>
             Debug.DrawLine(origin, hit.point, Color.red, duration);
+
+        public static void Single(Ray ray) =>
+            Debug.DrawLine(ray.origin, ray.direction);
 
         public static void Rays(Vector3 origin, RaycastHit[] hits, float duration = .5f)
         {
@@ -530,6 +533,5 @@ namespace Skypex.Raycasting
                 Debug.DrawLine(origins[i], hits[i].point, Color.red, duration);
             }
         }
-
     }
 }

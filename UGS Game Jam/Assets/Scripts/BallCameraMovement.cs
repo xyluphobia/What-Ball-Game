@@ -1,27 +1,33 @@
 using Skypex.ExtensionMethods;
-using Skypex.Raycasting;
 using UnityEngine;
 
 public class BallCameraMovement : MonoBehaviour
 {
+    [SerializeField] private Transform playerBall;
     [SerializeField] private Transform cameraTrack;
     [Space]
-    [SerializeField] private float cameraDistance = 12f;
+    [SerializeField] private float startingCameraDistance = 12f;
+    [SerializeField] private float minCameraDistance = 1f;
+    [SerializeField] private float maxCameraDistance = 20f;
     [SerializeField] private float smoothTime = .5f;
     [SerializeField, Range(.1f, 10f)] private float sensitivity = 1;
     [SerializeField] private bool invertY = false;
 
     private int _cameraInvertValue;
+    private float _currentCameraDistance;
+    private RaycastHit hitInfo;
+    private float _velocity = 1f;
 
     private void Start()
     {
-        ClampCamera();
+        _currentCameraDistance = startingCameraDistance;
+        ClampCameraLookAngle();
         throw new System.NotImplementedException("Check Camera Block Not implemented properly");
     }
 
     private void Update()
     {
-        CheckCameraBlock();
+        CheckCameraIsBlocked();
 
         transform.LookAt(cameraTrack);
 
@@ -34,25 +40,35 @@ public class BallCameraMovement : MonoBehaviour
 
     private int GetInvertValue() => invertY ? 1 : -1;
 
-    private void UpdateCameraDistance(float distance)
+    private void UpdateCameraDistance(float targetDistance)
     {
-        transform.localPosition = transform.localPosition.With(z: -distance);
+        if (targetDistance > maxCameraDistance)
+            return;
+
+        targetDistance.MinMax(minCameraDistance, maxCameraDistance); //Clamp camera distance
+        float dampDistance = Mathf.SmoothDamp(_currentCameraDistance, targetDistance, ref _velocity, smoothTime);
+
+        transform.localPosition = transform.localPosition.With(z: -dampDistance);
     }
 
-    private void CheckCameraBlock()
+    private void CheckCameraIsBlocked()
     {
-        float preferredDistance = cameraDistance;
-        if (Raycast.Single(cameraTrack.position, transform.position, out RaycastHit hitInfo, cameraDistance + 5f))
+        Ray ray = new Ray();
+        ray.origin = playerBall.position;
+        ray.direction = transform.position;
+        if (Physics.Raycast(ray, out hitInfo, _currentCameraDistance + 1f))
         {
-            float lerpDistance = Mathf.Lerp(cameraDistance, hitInfo.distance - 2f, smoothTime);
-            preferredDistance = lerpDistance;
+            UpdateCameraDistance(hitInfo.distance - 1f);
         }
-
-        UpdateCameraDistance(preferredDistance);
     }
 
-    private void ClampCamera()
+    private void ClampCameraLookAngle()
     {
         throw new System.NotImplementedException("Clamping not implemented");
+    }
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawLine(cameraTrack.position, hitInfo.point);
     }
 }

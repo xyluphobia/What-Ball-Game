@@ -6,7 +6,8 @@ public class TopDownCameraMovement : MonoBehaviour
 {
     [SerializeField] private Transform cameraTrack;
     [Space]
-    [SerializeField] private float cameraDistance;
+    [SerializeField] private float maxCameraDistance = 20f;
+    [SerializeField] private float minCameraDistance = 5f;
     [SerializeField, Range(10f, 50f)] private float cameraSpeed = 10f;
     [SerializeField, Range(50f, 500f)] private float zoomSpeed = 10f;
     [SerializeField, Range(.1f, 10f)] private float sensitivity;
@@ -15,13 +16,12 @@ public class TopDownCameraMovement : MonoBehaviour
     [SerializeField] private bool invertY = false;
 
     private PlayerInput _pi;
-    private Rigidbody _rb;
     private int _cameraInvertValue;
+    private float _currentCameraDistance;
 
     private void Awake()
     {
         _pi = GetComponent<PlayerInput>();
-        _rb = GetComponent<Rigidbody>();
     }
 
     private void Start() => UpdateCameraDistance();
@@ -55,18 +55,27 @@ public class TopDownCameraMovement : MonoBehaviour
 
     private void Zoom()
     {
-        cameraDistance += -_pi.ScrollWheelDelta * zoomSpeed * Time.deltaTime;
+        _currentCameraDistance += -_pi.ScrollWheelDelta * zoomSpeed * Time.deltaTime;
+        ClampDistance();
+    }
+
+    private void ClampDistance()
+    {
+        if (_currentCameraDistance > maxCameraDistance) _currentCameraDistance = maxCameraDistance;
+        if (_currentCameraDistance < minCameraDistance) _currentCameraDistance = minCameraDistance;
     }
 
     private int GetInvertValue() => invertY ? 1 : -1;
 
     private void UpdateCameraDistance()
     {
-        Raycast.Single(transform.position, Vector3.down, out RaycastHit hitInfo, cameraDistance * 2);
+        Raycast.Single(transform.position, Vector3.down, out RaycastHit hitInfo, _currentCameraDistance * 2);
 
-        Vector3 targetPosition = transform.position.With(y: hitInfo.point.y + cameraDistance);
+        Vector3 targetPosition = transform.position.With(y: hitInfo.point.y + _currentCameraDistance);
 
         Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         transform.position = smoothedPosition;
+
+        
     }
 }
