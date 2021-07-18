@@ -568,33 +568,6 @@ namespace Skypex.ExtensionMethods
             Vector3.Normalize(destination - source);
 
         /// <summary>
-        /// Finds the direction towards a given vector.
-        /// </summary>
-        /// <param name="source">Transform.</param>
-        /// <param name="destination">Vector to find the direction to.</param>
-        /// <returns>Direction in the form of a normalized Vector3.</returns>
-        public static Vector3 DirectionTo3D(this Transform source, Vector3 destination) =>
-            Vector3.Normalize(destination - source.position);
-
-        /// <summary>
-        /// Finds the direction towards a given vector.
-        /// </summary>
-        /// <param name="source">Vector3.</param>
-        /// <param name="destination">Transform to find the direction to.</param>
-        /// <returns>Direction in the form of a normalized Vector3.</returns>
-        public static Vector3 DirectionTo3D(this Vector3 source, Transform destination) =>
-            Vector3.Normalize(destination.position - source);
-
-        /// <summary>
-        /// Finds the direction towards a given vector.
-        /// </summary>
-        /// <param name="source">Transform.</param>
-        /// <param name="destination">Transform to find the direction to.</param>
-        /// <returns>Direction in the form of a normalized Vector3.</returns>
-        public static Vector3 DirectionTo3D(this Transform source, Transform destination) =>
-            Vector3.Normalize(destination.position - source.position);
-
-        /// <summary>
         /// Rounds each axis of the vector to a whole number.
         /// </summary>
         /// <param name="vector">Vector.</param>
@@ -615,6 +588,23 @@ namespace Skypex.ExtensionMethods
         /// <returns>Vector3 rounded to a multiple of a number.</returns>
         public static Vector3 Round(this Vector3 vector, float multiple) =>
             (vector / multiple).Round() * multiple;
+
+        /// <summary>
+        /// Rounds each axis of the vector to a multiple of a given value.
+        /// </summary>
+        /// <param name="vector">Vector.</param>
+        /// <param name="multiple">Multiple to round to.</param>
+        /// <returns>Vector3 rounded to a multiple of a Vector.</returns>
+        public static Vector3 Round(this Vector3 vector, Vector3 multiple)
+        {
+            Vector3 newVector;
+
+            newVector.x = (vector.x / multiple.x).Round() * multiple.x;
+            newVector.y = (vector.y / multiple.y).Round() * multiple.y;
+            newVector.z = (vector.z / multiple.z).Round() * multiple.z;
+
+            return newVector;
+        }
 
         /// <summary>
         /// Converts a Vector3 to a Vector2.

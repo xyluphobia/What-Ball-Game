@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BallMovement : MonoBehaviour
 {
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool movementEnabled;
+    [SerializeField] private float resetYLevel;
+
+    public UnityEvent OnReset;
 
     private PlayerInput _pi;
     private Rigidbody _rb;
@@ -18,6 +22,7 @@ public class BallMovement : MonoBehaviour
     private void Start()
     {
         _rb.maxAngularVelocity = Mathf.Infinity;
+        playerCamera = FindObjectOfType<BallCameraMovement>().transform.GetComponent<Camera>();
     }
 
     private void FixedUpdate()
@@ -33,5 +38,19 @@ public class BallMovement : MonoBehaviour
 
         if (_pi.Right && movementEnabled)
             _rb.AddTorque(-playerCamera.transform.forward * moveSpeed * Time.deltaTime);
+    }
+
+    private void Update()
+    {
+        if (transform.position.y <= resetYLevel)
+        {
+            GameManager.Instance.ResetLevel();
+            OnReset?.Invoke();
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameManager.UpdateBallStartPosition();
     }
 }

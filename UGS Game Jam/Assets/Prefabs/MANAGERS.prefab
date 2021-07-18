@@ -1,48 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &318743042411582866
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7293824539760860460}
-  - component: {fileID: 3263702110587355833}
-  m_Layer: 0
-  m_Name: Scene Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7293824539760860460
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318743042411582866}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1396808724956193490}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3263702110587355833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318743042411582866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 206f1affd680f8b49a2d87f506ccca28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1282875030470633665
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6083456399756379534}
+  - component: {fileID: 337981288}
   m_Layer: 0
   m_Name: Puzzle Piece Manager
   m_TagString: Untagged
@@ -71,8 +29,63 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1396808724956193490}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &337981288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282875030470633665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ffb6425813db9c4086f0131a01371ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelList:
+  - PuzzlePieces: []
+  - PuzzlePieces:
+    - Prefab: {fileID: 3102981612833792309, guid: 3b886af0a14af5549bfa13632219d370, type: 3}
+      Uses: 1
+      Sprite: {fileID: 0}
+    - Prefab: {fileID: 1222040136371446898, guid: a1cc8c61d9ec1fc4f8f88957bfdc47c0, type: 3}
+      Uses: 1
+      Sprite: {fileID: 0}
+  - PuzzlePieces:
+    - Prefab: {fileID: 3102981612833792309, guid: 3b886af0a14af5549bfa13632219d370, type: 3}
+      Uses: 1
+      Sprite: {fileID: 0}
+    - Prefab: {fileID: 1222040136371446898, guid: a1cc8c61d9ec1fc4f8f88957bfdc47c0, type: 3}
+      Uses: 1
+      Sprite: {fileID: 0}
+    - Prefab: {fileID: 9157271617029721390, guid: 156fa8003f976404c8b5016e3364794d, type: 3}
+      Uses: 1
+      Sprite: {fileID: 0}
+  - PuzzlePieces:
+    - Prefab: {fileID: 2440724161231904973, guid: e176a3f78f509b34b89cce0d4eacad04, type: 3}
+      Uses: 2
+      Sprite: {fileID: 0}
+    - Prefab: {fileID: 8641054882200377989, guid: ba22c01fdd4443c4d89a8a7813bb71f9, type: 3}
+      Uses: 2
+      Sprite: {fileID: 0}
+    - Prefab: {fileID: 2002245399600910546, guid: 24626427b9ac7414184838721cc2410c, type: 3}
+      Uses: 1
+      Sprite: {fileID: 0}
+  - PuzzlePieces:
+    - Prefab: {fileID: 1222040136371446898, guid: a1cc8c61d9ec1fc4f8f88957bfdc47c0, type: 3}
+      Uses: 1
+      Sprite: {fileID: 0}
+    - Prefab: {fileID: 9157271617029721390, guid: 156fa8003f976404c8b5016e3364794d, type: 3}
+      Uses: 1
+      Sprite: {fileID: 0}
+    - Prefab: {fileID: 0}
+      Uses: 3
+      Sprite: {fileID: 0}
+  - PuzzlePieces:
+    - Prefab: {fileID: 2392188141777177181, guid: 8236b9230b35320418dc245016a9f647, type: 3}
+      Uses: 4
+      Sprite: {fileID: 0}
 --- !u!1 &1396808723222471557
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +132,6 @@ MonoBehaviour:
   audioManager: {fileID: 3042559499316201685}
   DontDestroyOnLoadObjects:
   - {fileID: 1396808724956193501}
-  - {fileID: 0}
 --- !u!1 &1396808724956193501
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +161,6 @@ Transform:
   m_Children:
   - {fileID: 1396808723222471578}
   - {fileID: 8154451717670560738}
-  - {fileID: 7293824539760860460}
   - {fileID: 6083456399756379534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -198,10 +209,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 3a757d5c829e4524e8f6b10b7ac48ac5, type: 2}
-  SoundEffects: []
+  SoundEffects:
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
   Music:
   - name: Nature Song
     clip: {fileID: 8300000, guid: fd7de6c48e35a5f468f8faa7c7a5448c, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Spacetime Vibing
+    clip: {fileID: 8300000, guid: 8a6af5d147280ad459427e624d7aeaa6, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}

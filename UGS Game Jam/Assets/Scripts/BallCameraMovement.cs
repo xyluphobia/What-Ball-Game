@@ -3,72 +3,63 @@ using UnityEngine;
 
 public class BallCameraMovement : MonoBehaviour
 {
-    [SerializeField] private Transform playerBall;
     [SerializeField] private Transform cameraTrack;
     [Space]
-    [SerializeField] private float startingCameraDistance = 12f;
+    [SerializeField] private float cameraDistance = 12f;
+    [SerializeField] private float viewRange = 85f;
     [SerializeField] private float minCameraDistance = 1f;
-    [SerializeField] private float maxCameraDistance = 20f;
-    [SerializeField] private float smoothTime = .5f;
     [SerializeField, Range(.1f, 10f)] private float sensitivity = 1;
     [SerializeField] private bool invertY = false;
 
     private int _cameraInvertValue;
     private float _currentCameraDistance;
     private RaycastHit hitInfo;
-    private float _velocity = 1f;
+    private Quaternion _cameraRotation;
 
-    private void Start()
+    private void OnEnable()
     {
-        _currentCameraDistance = startingCameraDistance;
-        ClampCameraLookAngle();
-        throw new System.NotImplementedException("Check Camera Block Not implemented properly");
+        _currentCameraDistance = cameraDistance;
+        _cameraRotation = cameraTrack.localRotation;
     }
 
     private void Update()
     {
         CheckCameraIsBlocked();
 
-        transform.LookAt(cameraTrack);
+        transform.LookAt(cameraTrack.position + Vector3.up / 2);
 
         _cameraInvertValue = GetInvertValue();
 
-        //MOUSE
-        cameraTrack.RotateAround(cameraTrack.position, Vector3.up, Input.GetAxis("Mouse X") * sensitivity);
-        cameraTrack.RotateAround(cameraTrack.position, cameraTrack.right, Input.GetAxis("Mouse Y") * sensitivity * _cameraInvertValue);
+        //Camera Rotation
+        _cameraRotation.x -= Input.GetAxis("Mouse Y") * sensitivity;
+        _cameraRotation.y -= Input.GetAxis("Mouse X") * sensitivity * _cameraInvertValue;
+
+        _cameraRotation.x = Mathf.Clamp(_cameraRotation.x, -viewRange, viewRange);
+
+        cameraTrack.localRotation = Quaternion.Euler(_cameraRotation.x, _cameraRotation.y, _cameraRotation.z);
     }
 
     private int GetInvertValue() => invertY ? 1 : -1;
 
     private void UpdateCameraDistance(float targetDistance)
     {
-        if (targetDistance > maxCameraDistance)
+        if (targetDistance > cameraDistance)
             return;
 
-        targetDistance.MinMax(minCameraDistance, maxCameraDistance); //Clamp camera distance
-        float dampDistance = Mathf.SmoothDamp(_currentCameraDistance, targetDistance, ref _velocity, smoothTime);
+        _currentCameraDistance = targetDistance.Min(minCameraDistance); //Clamp camera distance
+        //float dampDistance = Mathf.SmoothDamp(_currentCameraDistance, targetDistance, ref _velocity, smoothTime);
 
-        transform.localPosition = transform.localPosition.With(z: -dampDistance);
+        transform.localPosition = transform.localPosition.With(z: -_currentCameraDistance);
     }
 
     private void CheckCameraIsBlocked()
     {
-        Ray ray = new Ray();
-        ray.origin = playerBall.position;
-        ray.direction = transform.position;
-        if (Physics.Raycast(ray, out hitInfo, _currentCameraDistance + 1f))
+        if (Physics.Raycast(cameraTrack.position, cameraTrack.position.DirectionTo3D(transform.position), out hitInfo))
         {
             UpdateCameraDistance(hitInfo.distance - 1f);
+            return;
         }
-    }
 
-    private void ClampCameraLookAngle()
-    {
-        throw new System.NotImplementedException("Clamping not implemented");
-    }
-
-    private void OnDrawGizmos()
-    {
-        Debug.DrawLine(cameraTrack.position, hitInfo.point);
+        UpdateCameraDistance(cameraDistance);
     }
 }

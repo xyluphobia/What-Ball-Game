@@ -1,65 +1,76 @@
-using System.Collections;
-using System.Collections.Generic;
+using Skypex.ExtensionMethods;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BuilderIO : MonoBehaviour 
+public class BuilderIO : MonoBehaviour
 {
+    [SerializeField] private float maxBlockPlaceDistance = 20f;
+    [SerializeField] private Vector3 snappingGrid = new Vector3(2.5f, 0.5f, 2.5f);
+    [SerializeField] private Color ghostColor;
 
-    private int SelectionIndex;
-    private PuzzlePieceList PuzzleExtension;
-    private int SelectionIndexMax = 1;   
+    private PuzzlePieceList _puzzleExtension;
+    private int _selectionIndex;
+    private int _selectionIndexMax = 1;
+    private Vector3 _snappedPosition;
+    private Quaternion _selectedRotation = Quaternion.identity;
+    private GameObject _selectedObject;
 
+    private void Awake() => _puzzleExtension = PuzzlePieceList.Instance;
 
-    private void Awake()
-    {
-        PuzzleExtension = PuzzlePieceList.Instance;
-    }
-
-    void Start()
-    {
-        
-        SelectionIndexMax = PuzzleExtension.LevelList[SceneManager.GetActiveScene().buildIndex].PuzzlePieces.Count - 1;
-        
-    }
+    private void Start() => _selectionIndexMax = _puzzleExtension.LevelList[SceneManager.GetActiveScene().buildIndex].PuzzlePieces.Count - 1;
 
     private void Update()
     {
-        
-        //CreateHighlight();
-        
-        //left click make, right click destroy
-        //based on current, show ghost
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, maxBlockPlaceDistance))
+        {
+            _snappedPosition = SnapSelection(hitInfo.point, snappingGrid);
+            _selectedObject = hitInfo.transform.gameObject;
+        }
     }
 
-    public void Create()
+    public void OnKey(MouseButton button)
     {
-        Instantiate(PuzzleExtension.LevelList[SceneManager.GetActiveScene().buildIndex].PuzzlePieces[SelectionIndex].Prefab, /*snappedPosition*/, /*selectedRotation*/);
+        if (button == MouseButton.LeftClick)
+        { 
+            Create();
+            return;
+        }
+
+        Remove();
     }
 
-    public void SelectionChange(SelectionDirection selection)
+    private void Create()
+    {
+        GameObject newBlock = Instantiate(_puzzleExtension.LevelList[SceneManager.GetActiveScene().buildIndex].PuzzlePieces[_selectionIndex].Prefab, _snappedPosition, _selectedRotation);
+        newBlock.AddComponent<Removable>();
+    }
+
+    private void CreateGhost()
+    {
+        GameObject newBlock = Instantiate(_puzzleExtension.LevelList[SceneManager.GetActiveScene().buildIndex].PuzzlePieces[_selectionIndex].Prefab, _snappedPosition, _selectedRotation);
+        Material blockMat = newBlock.GetComponent<Material>();
+        blockMat.color = ghostColor;
+    }
+
+    private void Remove() => Destroy(_selectedObject);
+
+    private void SelectionChange(SelectionDirection selection)
     {
        if(selection == SelectionDirection.Left)
         {
-            if(SelectionIndex == 0)
-            {
+            if(_selectionIndex == 0)
                 return;
-            }
-            SelectionIndex--;
+
+            _selectionIndex--;
         }
         else
         {
-            if (SelectionIndex == SelectionIndexMax)
-            {
+            if (_selectionIndex == _selectionIndexMax)
                 return;
-            }
-            SelectionIndex++;
-        }
-       
+
+            _selectionIndex++;
+        }       
     }
 
-    //changes count everytime it is placed
-
-
-
+    private static Vector3 SnapSelection(Vector3 position, Vector3 snapGrid) => position.Round(snapGrid);
 }

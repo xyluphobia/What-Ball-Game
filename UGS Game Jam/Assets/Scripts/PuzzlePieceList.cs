@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PuzzlePieceList : MonoBehaviour
 {
-    //God
-    #region GodCode
+    #region Singleton
     public static PuzzlePieceList _instance;
 
     public static PuzzlePieceList Instance => _instance;
@@ -35,6 +34,7 @@ public class PuzzlePieceList : MonoBehaviour
         {
             public GameObject Prefab;
             public int Uses = 1;
+            public Sprite Sprite;
         }
     }
 }

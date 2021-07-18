@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using Skypex.ExtensionMethods;
@@ -397,3 +398,4 @@ namespace Skypex.EditorFunctions
             Handles.zTest = CompareFunction.GreaterEqual;
     }
 }
+#endif

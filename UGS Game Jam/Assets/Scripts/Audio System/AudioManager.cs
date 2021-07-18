@@ -42,6 +42,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         CreateSingleton();
 
         foreach (Sound sound in Music)
@@ -71,11 +72,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        SetDistortLevel(0f);
-    }
-
     public void PlayMusic(string name)
     {
         Sound sound = GetMusicClip(name);
@@ -85,7 +81,7 @@ public class AudioManager : MonoBehaviour
         sound.source.Play();
     }
 
-    public void PlayVoiceLine()
+    public void PlayVoiceLine(string name)
     {
         Sound sound = GetVoiceLineClip(name);
         if (sound is null)
@@ -94,10 +90,31 @@ public class AudioManager : MonoBehaviour
         sound.source.Play();
     }
 
-    public void SetDistortLevel(float level)
+    public void PlayRandomFinishMessage()
     {
-        mixer.SetFloat("Music Distortion", level);
-        mixer.SetFloat("SFX Distortion", level);
+        string name;
+
+        int rndNum = Random.Range(0, 3);
+        switch (rndNum)
+        {
+            default:
+            case 0:
+                name = "Finish 1";
+                break;
+            case 1:
+                name = "Finish 2";
+                break;
+            case 2:
+                name = "Finish 3";
+                break;
+        }
+
+        Sound sound = GetVoiceLineClip(name);
+
+        if (sound == null)
+            return;
+
+        sound.source.Play();
     }
 
     public static void FadeIn(AudioSource source, float fadeTime, float targetVolume, float delay = 0)

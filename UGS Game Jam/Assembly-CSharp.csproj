@@ -54,22 +54,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Audio System\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Sky&apos;s Library\AudioUtils.cs" />
     <Compile Include="Assets\Scripts\TopDownCameraMovement.cs" />
+    <Compile Include="Assets\Scripts\PistonPush.cs" />
+    <Compile Include="Assets\Scripts\CreditsManager.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
+    <Compile Include="Assets\Scripts\FinishTrigger.cs" />
     <Compile Include="Assets\Scripts\SpringTrapBoost.cs" />
+    <Compile Include="Assets\Scripts\Removable.cs" />
     <Compile Include="Assets\Scripts\BallCameraMovement.cs" />
+    <Compile Include="Assets\Scripts\LoadNextSceneTrigger.cs" />
     <Compile Include="Assets\Scripts\CameraSwitcher.cs" />
+    <Compile Include="Assets\Scripts\RandomRotate.cs" />
     <Compile Include="Assets\Scripts\Sky&apos;s Library\ExtensionMethods.cs" />
     <Compile Include="Assets\Scripts\Sky&apos;s Library\EditorFunctions.cs" />
+    <Compile Include="Assets\Scripts\MovePlatform.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\BuilderIO.cs" />
     <Compile Include="Assets\Scripts\SpeedBoost.cs" />
     <Compile Include="Assets\Scripts\BallMovement.cs" />
     <Compile Include="Assets\Scripts\Sky&apos;s Library\Raycasting.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Sky&apos;s Library\AudioUtils.cs" />
-    <Compile Include="Assets\Scripts\BuilderIO.cs" />
-    <Compile Include="Assets\Scripts\MapTool.cs" />
     <Compile Include="Assets\Scripts\PuzzlePieceList.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\CameraTrackManager.cs" />
+    <Compile Include="Assets\VoiceLineStarter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

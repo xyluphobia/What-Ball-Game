@@ -7,8 +7,9 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public bool Left;
     [HideInInspector] public bool Back;
     [HideInInspector] public bool Right;
+    [HideInInspector] public bool Up;
+    [HideInInspector] public bool Down;
     [HideInInspector] public bool Any;
-    [HideInInspector] public bool LeftMouseButton;
 
     [HideInInspector] public bool UseBallCam;
     [HideInInspector] public float ScrollWheelDelta;
@@ -46,11 +47,24 @@ public class PlayerInput : MonoBehaviour
             Right = false;
 
         //WASD ANY
-        if (Forward || Left || Back || Right)
+        if (Forward || Left || Back || Right || Up || Down)
             Any = true;
 
-        if (!Forward && !Left && !Back && !Right)
+        if (!Forward && !Left && !Back && !Right && !Up && !Down)
             Any = false;
+
+        //SPACE & CTRL
+        if (Input.GetKeyDown(KeyCode.Space))
+            Up = true;
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+            Down = true;
+
+        if (Input.GetKeyUp(KeyCode.Space))
+            Up = false;
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+            Down = false;
 
         //SCROLL SHEEL
         ScrollWheelDelta = Input.mouseScrollDelta.y;
@@ -78,6 +92,8 @@ public class PlayerInput : MonoBehaviour
         }
 #endif
     }
+
+    public void SetUseBallCam(bool value) => UseBallCam = value;
 }
 
 public enum SelectionDirection

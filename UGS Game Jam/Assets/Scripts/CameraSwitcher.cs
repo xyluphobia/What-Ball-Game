@@ -4,8 +4,8 @@ public class CameraSwitcher : MonoBehaviour
 {
     [SerializeField] private Transform ballCamTransform;
     [SerializeField] private Transform topDownCamTransform;
-    [SerializeField] private BallMovement playerBall;
 
+    private BallMovement _playerBall;
     private Camera _mainCam;
     private Camera _ballCam;
     private Camera _topDownCam;
@@ -21,6 +21,8 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Start()
     {
+        _playerBall = GameManager.PlayerBall.GetComponent<BallMovement>();
+
         _mainCam.enabled = true;
         _ballCam.enabled = false;
         _topDownCam.enabled = false;
@@ -28,7 +30,7 @@ public class CameraSwitcher : MonoBehaviour
         ballCamTransform.gameObject.SetActive(false);
         topDownCamTransform.gameObject.SetActive(true);
 
-        playerBall.enabled = false;
+        _playerBall.enabled = false;
 
         Debug.Log("Press 'Return' to change camera. (Editor Only)");
     }
@@ -40,7 +42,7 @@ public class CameraSwitcher : MonoBehaviour
             transform.SetParent(ballCamTransform);
             ResetTransform();
             _mainCam = _ballCam;
-            playerBall.enabled = true;
+            _playerBall.enabled = true;
             ballCamTransform.gameObject.SetActive(true);
             topDownCamTransform.gameObject.SetActive(false);
             return;
@@ -49,7 +51,7 @@ public class CameraSwitcher : MonoBehaviour
         transform.SetParent(topDownCamTransform);
         ResetTransform();
         _mainCam = _topDownCam;
-        playerBall.enabled = false;
+        _playerBall.enabled = false;
         ballCamTransform.gameObject.SetActive(false);
         topDownCamTransform.gameObject.SetActive(true);
     }

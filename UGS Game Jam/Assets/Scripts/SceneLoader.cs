@@ -1,9 +1,18 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
-public class SceneLoader : MonoBehaviour
+public class SceneLoader
 {
-    public static void LoadScene() => SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+    public static void LoadNextLevel()
+    {
+        LoadNextScene();
+    }
 
-    public static void UnloadScene() => SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+    public static AsyncOperation LoadNextScene() => LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+    public static AsyncOperation UnloadThisScene() => UnloadScene(SceneManager.GetActiveScene().buildIndex);
+
+    public static AsyncOperation LoadScene(int buildIndex) => SceneManager.LoadSceneAsync(buildIndex);
+
+    public static AsyncOperation UnloadScene(int buildIndex) => SceneManager.UnloadSceneAsync(buildIndex);
 }
